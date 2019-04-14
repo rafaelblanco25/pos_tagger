@@ -108,7 +108,7 @@ class Perceptron:
 
 	def modify_weight(self, y_i, x):
 		for number in x:
-			self.w[number] += y_i
+			self.w[number] += y_i #because we are working with binary values
 
 
 
