@@ -209,6 +209,22 @@ def get_by_label(label, sett):
 	return result
 
 
+class Noisiness:
+	def __init__(self,file_in_domain, file_out_domain):
+		count_without_caps = different_words(file_in_domain,'train')[1]
+		self.in_domain = count_without_caps
+		count_without_caps = different_words(file_out_domain,'test')[1]
+		self.out_domain = count_without_caps
+
+
+	def out_of_Vocabulary(self):
+		difference = 0
+		for k in self.out_domain.keys():
+			if k not in self.in_domain:
+				difference+=1
+		return difference
+
+
 
 global suffix
 suffix = ['acy', 'al', 'ance', 'ence', 'dom', 'er', 'or', 'ism', 'ist', 'ity', 'ty', 'ment', 'ness', 'ship', 'sion', 'tion', 'ate', 'en', 'ify', 'fy', 'ize', 'ise', 'able', 'ible', 'al', 'esque', 'ful', 'ic', 'ical', 'ious', 'ous', 'ish', 'ive', 'less', 'y']
