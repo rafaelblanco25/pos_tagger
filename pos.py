@@ -16,11 +16,15 @@ def different_words(file, type_of_set):
 			else:
 				count[word] = 1
 
-	#print(count)
-	print("Tamano count: ", len(count))
-	print("Tamano count sin caps: ", len(count_without_caps))
+	print("Number of differents words: ", len(count))
+	print("Number of differents lowercase words: ", len(count_without_caps))
 
+	return count, count_without_caps
 
+class Perceptron:
+	def __init__(self, ):
+
+		#bla
 
 
 if __name__ == "__main__":
