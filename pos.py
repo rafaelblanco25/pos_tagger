@@ -2,8 +2,8 @@ import json
 
 def different_words(file, type_of_set):
 	set_to_count = json.load(open("./corpus/en/en."+file+"."+type_of_set+".json"))
-	count = {}
-	count_without_caps = {}
+	count = {}					#dict with differents words
+	count_without_caps = {}		#dict with differents lowercase words
 	for words, labels in set_to_count:
 		for word in words:
 			if word.lower() in count_without_caps:
