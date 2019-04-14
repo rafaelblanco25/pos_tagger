@@ -121,12 +121,27 @@ class Perceptron:
 
 	# def dot_product(self, features):
 
+def get_by_label(label, sett):
+	result = []
+	for element in sett:
+		if element[-1] == label:
+			result.append(element[0])
+
+	return result
+
+
+
 
 if __name__ == "__main__":
 	files_3_dataset = ["ewt", "gum", "lines", "partut"]
 	files_only_test = ["foot", "natdis", "pud"]
 	type_of_set = ["train", "dev", "test"]
 	#different_words(files_3_dataset[0], type_of_set[0])
-	test = get_trainning_set(files_3_dataset[0], type_of_set[0])
-	for elem in test:
-		print(elem)
+
+	test, id_word = get_trainning_set(files_3_dataset[0], type_of_set[0])
+	#print(test)
+	print(get_by_label("NOUN", test))
+	# for elem in test:
+	# 	print(elem)
+
+
