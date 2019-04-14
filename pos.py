@@ -125,7 +125,8 @@ def get_by_label(label, sett):
 	result = []
 	for element in sett:
 		if element[-1] == label:
-			result.append(element[0])
+			if element[0] not in (result):
+				result.append(element[0])
 
 	return result
 
