@@ -310,7 +310,7 @@ if __name__ == "__main__":
 	#files_only_test = ["foot", "natdis", "pud"]
 	type_of_set = ["train", "dev", "test"]
 
-	i = 1
+	i = 3
 	multiclass = Multiclass(files_3_dataset[i], 3)
 	#iteration selected
 	iteration_selected = {}
