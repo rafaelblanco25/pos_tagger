@@ -229,7 +229,7 @@ if __name__ == "__main__":
 	# p = Perceptron(files_3_dataset[0], 3, "NOUN")
 	# p.train()
 	# p.plot_training_and_validation_error()
-	multiclass = Multiclass(files_3_dataset[0], 3)
+	multiclass = Multiclass(files_3_dataset[1], 3)
 	multiclass.test()
 
 
