@@ -40,7 +40,9 @@ class Noisiness:
 		for k in self.out_domain.keys():
 			if k not in self.in_domain:
 				difference+=1
-		return difference
+
+		
+		return (difference*100.0)/len(self.out_domain)
 
 	def generate_n_grams_char(self,word,n): #Used for the KL divergence
 		grams=[] #array with the all the possible n-grams in word
@@ -107,7 +109,7 @@ class Noisiness:
 
 
 	def __init__(self,file_in_domain, file_out_domain):
-		count_without_caps = different_words(file_in_domain,'test')[1]
+		count_without_caps = different_words(file_in_domain,'train')[1]
 		self.in_domain = count_without_caps
 		count_without_caps = different_words(file_out_domain,'test')[1]
 		self.out_domain = count_without_caps
@@ -127,8 +129,15 @@ class Noisiness:
 if __name__ == "__main__":
 
 	files_3_dataset = ["ewt", "gum", "lines", "partut"]
-	files_only_test = ["foot", "natdis", "pud"]
+	files_only_test = ["foot", "pud"]
 	type_of_set = ["train", "dev", "test"]
+
+	
+	for file_train in files_3_dataset:
+		for file_test in files_3_dataset + files_only_test:
+			n = Noisiness(file_train, file_test)
+
+
 
 	grams = {}
 
