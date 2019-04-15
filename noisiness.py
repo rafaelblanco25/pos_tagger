@@ -1,7 +1,8 @@
-
+# coding: utf-8
 import json
 import random
 import math 
+import kenlm
 
 def different_words(file, type_of_set):
 	set_to_count = json.load(open("./corpus/en/en."+file+"."+type_of_set+".json"))
@@ -84,26 +85,26 @@ class Noisiness:
 		
 		return (numberOf_key+1)/(N+V*(d-2))
 
-	def KL_divergence(self, c_test, c_train): #KL divergence of two sets
+	def KL_divergence(self): #KL divergence of two sets
 		all_grams = {}
 		# prob_test = []
 		# prob_train = []
 		KL_array = []
 
-		N, V, all_grams = self.grams_3_in_dicts(c_test,c_train) 
+		N, V, all_grams = self.grams_3_in_dicts(self.in_domain,self.out_domain) 
 
 		count = 0
 		for key in all_grams.keys(): 
-			prob_test = self.prob_set(N,V,all_grams[key],c_test)
-			prob_train = self.prob_set(N,V,all_grams[key],c_train)
+			prob_test = self.prob_set(N,V,all_grams[key],self.in_domain)
+			prob_train = self.prob_set(N,V,all_grams[key],self.out_domain)
 
 			count += prob_test*math.log(float(prob_test)/prob_train)
 
 			# KL_array.append(prob_test*math.log(float(prob_test)/prob_train))
 
-		print(count)
+		#print(count)
 
-		return 1
+		return count
 
 
 
@@ -114,7 +115,7 @@ class Noisiness:
 		count_without_caps = different_words(file_out_domain,'test')[1]
 		self.out_domain = count_without_caps
 
-		print(self.KL_divergence(self.in_domain,self.out_domain))
+		#print(self.KL_divergence(self.in_domain,self.out_domain))
 
 		# number = self.number_chars_in_set(self.in_domain)
 		# print(number)
@@ -125,6 +126,21 @@ class Noisiness:
 	# def KL_divergency_3_grams(self):
 	# 	for key in 
 
+def append_string(file):
+	s = json.load(open("./corpus/en/en."+file+"."+"test"+".json"))
+	string = ""
+	for words, labels in s:
+		for word in words:
+			string = string +" "+ word
+	return string
+
+def klm_perplexity(string):
+	model=kenlm.Model('kenlm/lm/test.arpa') 
+	#print(string)
+	per=model.perplexity(string)
+
+	# print(per)
+	return(per)
 
 if __name__ == "__main__":
 
@@ -132,19 +148,42 @@ if __name__ == "__main__":
 	files_only_test = ["foot", "pud"]
 	type_of_set = ["train", "dev", "test"]
 
-	
-	for file_train in files_3_dataset:
-		for file_test in files_3_dataset + files_only_test:
-			n = Noisiness(file_train, file_test)
+	klm_perplex = {}
+	for file in files_3_dataset + files_only_test:
+		klm_perplex[file] = klm_perplexity(append_string(file))
+
+	print(klm_perplex)
 
 
 
-	grams = {}
 
-	tel = {'jack': 1, 'sape': 1, 'apen':2}
-	til = {'zuj': 2, 'ra': 5}
 
-	n = Noisiness(files_only_test[2],files_only_test[0])
+
+	#oov = {}
+	# kl = {}
+	# for file_train in files_3_dataset:
+	# 	dic = {}
+	# 	for file_test in (files_3_dataset + files_only_test):
+	# 		n = Noisiness(file_train, file_test)
+	# 		dic[file_test] = n.KL_divergence()
+	# 	#oov[file_train] = dic
+	# 	kl[file_train] = dic
+
+	#print(oov)
+
+	# print("Training, ewt, gum, lines, partut, foot, pud")
+	# for key in files_3_dataset:
+	# 	print(key+", "+str(kl[key]["ewt"])+", "+str(kl[key]["gum"])+", "+str(kl[key]["lines"])+", "+str(kl[key]["partut"])+", "+str(kl[key]["foot"])+", "+str(kl[key]["pud"]))
+
+
+
+
+	# grams = {}
+
+	# tel = {'jack': 1, 'sape': 1, 'apen':2}
+	# til = {'zuj': 2, 'ra': 5}
+
+	# n = Noisiness(files_only_test[2],files_only_test[0])
 	# print(n.out_of_Vocabulary())
 	# grams = n.generate_n_grams_char("perro",3)
 	# grams = n.KL_divergency()
