@@ -307,7 +307,6 @@ def lecture(file, type_of_set):
 if __name__ == "__main__":
 	files_3_dataset = ["ewt", "gum", "lines", "partut"]
 	files_only_test = ["foot", "pud"]
-	#files_only_test = ["foot", "natdis", "pud"]
 	type_of_set = ["train", "dev", "test"]
 
 	i = 3
@@ -316,14 +315,11 @@ if __name__ == "__main__":
 	iteration_selected = {}
 	dev_error = {}
 	train_error = {}
-	# number_of_features = {}
-	# number_of_words = {}
+
 	for label in multiclass.perceptrons.keys():
 		iteration_selected[label] = multiclass.perceptrons[label].index_selected
 		dev_error[label] = multiclass.perceptrons[label].loss_function_evolve_validation
 		train_error[label] = multiclass.perceptrons[label].loss_function_evolve_training
-		# number_of_features[label] = multiclass.perceptrons[label].number_of_features
-		# number_of_words[label] = multiclass.perceptrons[label].number_of_words
 
 	print(files_3_dataset[i])
 	print("File, number_test, fails_test, perc_test, number_ambiguous, fails_ambiguous, perc_ambiguous, number_oov, fails_oov, perc_oov")
@@ -342,36 +338,6 @@ if __name__ == "__main__":
 
 		
 
-
-
-
-
-
-	#different_words(files_3_dataset[0], type_of_set[0])
-			
-	# test, id_word = get_set(files_3_dataset[0], type_of_set[0])
-	#print(test)
-	#print(get_by_label("NOUN", test))
-	# for elem in test:
-	# 	print(elem)
-
-	# p = Perceptron(files_3_dataset[0], 3, "NOUN")
-	# p.train()
-	# p.plot_training_and_validation_error()
-
-
-	# multiclass = Multiclass(files_3_dataset[2], 3)
-	# print("Precision over the whole set test: ")
-	# multiclass.test(get_set(files_3_dataset[2], "test")[0])
-	# print("Precision over OOV: ")
-	# multiclass.oov_measure(files_3_dataset[2])
-	# print("Precision over ambiguous words: ")
-	# multiclass.ambiguous_mesure(files_3_dataset[2])
-
-	# print(get_neighbout_pairs(files_3_dataset[0], "train"))
-	# lecture(files_only_test[2], "test")
-	# for i in range(5000):
-	# 	print("I gotta stuck by loading datasets")
 
 
 
