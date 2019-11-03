@@ -28,10 +28,7 @@ class Multiclass:
 		for elem in test_set:
 			prediction = self.predict(self.perceptrons[self.different_labels[0]].get_feature_sparse_array(elem))
 			if prediction != elem[-1]:
-				#print("Mala prediccion: ", prediction, elem[-1], elem[0])
 				error += 1
-			# else:
-			# 	#print("#BUENA")
 		# print("Total error: ", error)
 		# print("Test size: ", len(test_set))
 		# print("Precision: ", (len(test_set)-error)*100.0/len(test_set))
